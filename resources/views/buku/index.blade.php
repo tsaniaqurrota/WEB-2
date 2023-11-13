@@ -39,6 +39,7 @@
             <thead class="text-center">
                 <tr>
                     <th>id</th>
+                    <th>Cover</th>
                     <th>Judul Buku</th>
                     <th>Penulis</th>
                     <th>Harga</th>
@@ -50,8 +51,21 @@
             <tbody>
             @foreach($data_buku as $buku)
                 <tr>
+                    </div>
                     <td class="text-center">{{ $buku->id }}</td>
-                    <td class="text-start">{{ $buku->judul }}</td>
+                    <td class="text-center">
+                    @if ($buku->filepath)
+                    <div class="flex items-center justify-center">
+                        <img class="h-20 w-14 object-fit-contain"
+                        src="{{ asset($buku->filepath) }}"
+                        alt=""
+                        />
+                    @endif
+                    </td>
+
+
+
+                    <td class="text-center">{{ $buku->judul }}</td>
                     <td class="text-center">{{ $buku->penulis }}</td>
                     <td class="text-center">{{ "Rp ".number_format($buku->harga, 2, ',', '.') }}</td>
                     <td class="text-center">{{ \Carbon\Carbon::parse($buku->tgl_terbit)->format('d/m/Y') }}</td>
