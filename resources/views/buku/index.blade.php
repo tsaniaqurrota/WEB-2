@@ -69,17 +69,28 @@
                     <td class="text-center">{{ $buku->penulis }}</td>
                     <td class="text-center">{{ "Rp ".number_format($buku->harga, 2, ',', '.') }}</td>
                     <td class="text-center">{{ \Carbon\Carbon::parse($buku->tgl_terbit)->format('d/m/Y') }}</td>
+
                     <td class="row justify-content-center align-items-center">
-                        <form class="col-4 align-items-center" action="{{ route('buku.destroy', $buku->id) }}" method="post">
+                        @if (Auth::check() && Auth::user()->role == 'admin')
+                        <form class="col-3 align-items-center" action="{{ route('buku.destroy', $buku->id) }}" method="post">
                         @csrf
                         @method('DELETE')
                             <button onclick="return confirm('Apakah yakin ingin menghapus data?')" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
                         </form>
-                        <form class="col-4 align-items-center" action="{{ route('buku.edit', $buku->id) }}" method="GET">
+                        <form class="col-3 align-items-center" action="{{ route('buku.edit', $buku->id) }}" method="GET">
                         @csrf
                             <a href="{{ route('buku.edit', $buku->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                         </form>
+                        @endif
+
+                        <form class="col-3 align-items-center">
+                            @csrf
+                            <a href="{{ route('buku.detail', $buku->judul) }}" class="btn btn-sm btn-warning"><i class="fas fa-eye fa-inverse"></i> </a>
+                        </form>
                     </td>
+
+
+
 
                 </tr>
             @endforeach

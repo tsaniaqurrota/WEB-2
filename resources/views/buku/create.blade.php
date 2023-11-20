@@ -50,29 +50,28 @@
                 </div>
                 
                 <div class="form-group">
-                <label for="thumbnail">Thumbnail</label>
-                <input type="file" class="form-control-file" id="thumbnail" name="thumbnail">
-            </div>
+                    <label for="thumbnail">Thumbnail</label>
+                    <input type="file" class="form-control-file" id="thumbnail" name="thumbnail">
+                </div>
 
-            <div class="mt-2">
+                <div class="mt-2">                
+                    <label for="gallery">Gallery</label>
+                    <div><a href="javascript:void(0);" id="tambah" onclick="addFileInput()" class="btn btn-outline-primary mb-2"><i class="fas fa-plus"></i></a></div>
+                    <div class="mt-2" id="fileinput_wrapper">
                 
-    <label for="gallery">Gallery</label>
-    <div><a href="javascript:void(0);" id="tambah" onclick="addFileInput()" class="btn btn-outline-primary mb-2"><i class="fas fa-plus"></i></a>
-</div>
-    <div class="mt-2" id="fileinput_wrapper">
-    </div>
-    <script type="text/javascript">
-        function addFileInput() {
-            var div = document.getElementById('fileinput_wrapper');
-            var input = document.createElement('input');
-            input.type = 'file';
-            input.name = 'gallery[]';
-            input.className = 'form-control-file';
-            input.style.marginBottom = '5px';
-            div.appendChild(input);
-        }
-    </script>
-</div>
+                    </div>
+                    <script type="text/javascript">
+                        function addFileInput() {
+                            var div = document.getElementById('fileinput_wrapper');
+                            var input = document.createElement('input');
+                            input.type = 'file';
+                            input.name = 'gallery[]';
+                            input.className = 'form-control-file';
+                            input.style.marginBottom = '5px';
+                            div.appendChild(input);
+                        }
+                    </script>
+                </div>
 
 <div class="d-flex justify-content-end mt-4">
 <button type="submit" class="btn btn-primary mr-2">Simpan</button>

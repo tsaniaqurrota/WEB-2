@@ -18,6 +18,10 @@ class Buku extends Model
     {
         return $this->hasMany(Gallery::class);
     }
+
+    // public function photos() {
+    //     return $this->hasMany(Gallery::class,'buku_id','id');
+    // }
     //  entitas Buku memiliki banyak relasi dengan entitas Galeri
     //  jadi, setiap entitas Buku dapat terkait dengan banyak entitas Galeri.
 }

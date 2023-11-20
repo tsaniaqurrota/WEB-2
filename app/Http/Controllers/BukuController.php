@@ -65,6 +65,7 @@ class BukuController extends Controller
     
         $buku = Buku::create([
             'judul'     => $request->judul,
+            'foto'      => $fileName,
             'penulis'   => $request->penulis,
             'harga'     => $request->harga,
             'tgl_terbit' => $request->tgl_terbit,
@@ -161,7 +162,12 @@ class BukuController extends Controller
 
         return redirect()->back();
     }
-    
 
+    public function galbuku($judul) {
+        $buku = Buku::where('judul', $judul)->first();
+        $galeri = $buku->galleries()->orderBy('id','desc')->paginate(6);
+        return view('buku.detail', compact('buku', 'galeri'));
+    }
+    
 
 }

@@ -54,15 +54,14 @@
                     <div class="mt-2" id="fileinput_wrapper"></div>
                     <script type="text/javascript">
                         function addFileInput() {
-    var div = document.getElementById('fileinput_wrapper');
-    var input = document.createElement('input');
-    input.type = 'file';
-    input.name = 'gallery[]';
-    input.className = 'block w-full';
-    input.style.marginBottom = '5px';
-    div.appendChild(input);
-}
-
+                            var div = document.getElementById('fileinput_wrapper');
+                            var input = document.createElement('input');
+                                input.type = 'file';
+                                input.name = 'gallery[]';
+                                input.className = 'block w-full';
+                                input.style.marginBottom = '5px';
+                                div.appendChild(input);
+                            }
                     </script>
                 </div>
 

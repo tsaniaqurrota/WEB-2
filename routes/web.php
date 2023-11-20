@@ -25,8 +25,12 @@ Route::middleware('auth')->group(function () {
     });
     Route::get('/buku', [BukuController::class, 'index']);
     Route::get('/buku/search', [BukuController::class, 'search'])->name('buku.search');
-
 });
+
+Route::get('/detail-buku/{title}', [BukuController::class, 'galbuku'])->name('buku.detail');
+
+
+
 
 require __DIR__.'/auth.php';
 
