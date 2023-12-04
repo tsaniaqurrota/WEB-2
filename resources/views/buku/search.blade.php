@@ -33,7 +33,9 @@
 
     <div class="container bg-white mt-10 mb-4 p-4 rounded-lg shadow-md">
         <div class="flex justify-between items-center">
+        @if (Auth::check() && Auth::user()->role == 'admin')
             <a href="{{ route('buku.create') }}" class="btn btn-primary">Tambah Buku</i></a>
+        @endif
             <form action="{{ route('buku.search') }}" method="get" class="flex items-center">
                 <input type="text" name="kata" class="form-control rounded" placeholder="Cari..." style="width: 100%; display: inline; margin-top: 10px; margin-bottom: 10px; float: right;">       
                 <a href="{{ route('buku.search') }}" class="ml-2 btn btn-primary"><i class="fas fa-search"></i></a>
@@ -73,6 +75,7 @@
                     <td class="text-center">{{ "Rp ".number_format($buku->harga, 2, ',', '.') }}</td>
                     <td class="text-center">{{ \Carbon\Carbon::parse($buku->tgl_terbit)->format('d/m/Y') }}</td>
                     <td class="row justify-content-center align-items-center">
+                    @if (Auth::check() && Auth::user()->role == 'admin')
                         <form class="col-4 align-items-center" action="{{ route('buku.destroy', $buku->id) }}" method="post">
                         @csrf
                         @method('DELETE')
@@ -82,6 +85,12 @@
                         @csrf
                             <a href="{{ route('buku.edit', $buku->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                         </form>
+                    @endif
+
+                    <form class="col-3 align-items-center">
+                            @csrf
+                            <a href="{{ route('buku.detail', $buku->judul) }}" class="btn btn-sm btn-warning"><i class="fas fa-eye fa-inverse"></i> </a>
+                    </form>
                     </td>
 
                 </tr>

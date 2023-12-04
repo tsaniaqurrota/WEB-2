@@ -8,10 +8,13 @@ use App\Models\Buku;
 
 use App\Models\Gallery; 
 
+use App\Models\Favorite; 
+
+use App\Models\Rate;
+
 use Intervention\Image\Facades\Image;
 
-
-// use Image;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -165,9 +168,55 @@ class BukuController extends Controller
 
     public function galbuku($judul) {
         $buku = Buku::where('judul', $judul)->first();
-        $galeri = $buku->galleries()->orderBy('id','desc')->paginate(6);
+        $galeri = $buku->galleries()->orderBy('id','desc')->paginate(3);
         return view('buku.detail', compact('buku', 'galeri'));
     }
+
+
+    public function rate(Request $request, $id)
+{
+    $buku = Buku::find($id);
+
+    // Cek apakah pengguna sudah memberikan rating
+    $existingRating = Rate::where('user_id', auth()->user()->id)
+        ->where('buku_id', $buku->id)
+        ->first();
+
+    // Jika sudah memberikan rating, update rating
+    if ($existingRating) {
+        // Update rating yang sudah ada
+        $existingRating->update(['rating' => $request->rating]);
+
+        return redirect()->back()->with('success', 'Rating berhasil diperbarui.');
+    }
+
+    // Jika belum memberikan rating, tambahkan rating baru
+    $rating = new Rate([
+        'user_id' => auth()->user()->id,
+        'rating' => $request->rating,
+    ]);
+
+    $buku->rating()->save($rating);
+
+    return redirect()->back()->with('success', 'Rating berhasil disimpan.');
+}
+
+
+    public function addToFavorites(Request $request, $id)
+    {
+        $buku = Buku::find($id);
+    
+        $existingFavorites = Favorite::where('user_id', auth()->user()->id)
+            ->where('buku_id', $buku->id)
+            ->first();
+
+        if ($existingFavorites) {
+            return redirect()->back()->with('error', 'Buku sudah ada di favorit Anda.');
+        }
+
+        $buku->favoritedBy()->attach(auth()->user()->id);
+        return redirect("/buku/myfavorite")->with('success', 'Buku ditambahkan ke favorit.');
+    }
+}
     
 
-}

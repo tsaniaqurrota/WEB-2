@@ -28,7 +28,10 @@
 
     <div class="container bg-white mt-10 mb-4 p-4 rounded-lg shadow-md">
         <div class="flex justify-between items-center">
+        @if (Auth::check() && Auth::user()->role == 'admin')
             <a href="{{ route('buku.create') }}" class="btn btn-primary">Tambah Buku</i></a>
+        @endif
+
             <form action="{{ route('buku.search') }}" method="get" class="flex items-center">
                 <input type="text" name="kata" class="form-control rounded" placeholder="Cari..." style="width: 100%; display: inline; margin-top: 10px; margin-bottom: 10px; float: right;">       
                 <a href="{{ route('buku.search') }}" class="ml-2 btn btn-primary"><i class="fas fa-search"></i></a>
