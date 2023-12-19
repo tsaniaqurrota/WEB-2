@@ -217,6 +217,32 @@ class BukuController extends Controller
         $buku->favoritedBy()->attach(auth()->user()->id);
         return redirect("/buku/myfavorite")->with('success', 'Buku ditambahkan ke favorit.');
     }
+
+    public function popularBook() {
+        $batas = 10;
+    
+        // Mengambil data buku berdasarkan rating tertinggi dari model Rating
+        $data_buku = Buku::join('rating', 'buku.id', '=', 'rating.buku_id')
+                        ->selectRaw('buku.id, buku.judul, buku.penulis, buku.harga, buku.tgl_terbit, buku.filename, buku.filepath, AVG(rating.rating) as avg_rating')
+                        ->groupBy('buku.id', 'buku.judul', 'buku.penulis', 'buku.harga', 'buku.tgl_terbit', 'buku.filename', 'buku.filepath')  // Menyertakan semua kolom yang diambil dalam GROUP BY
+                        ->orderByDesc('avg_rating')  // Urutkan berdasarkan rata-rata rating
+                        ->distinct()
+                        ->paginate($batas);
+    
+        // Menghitung nomor urut berdasarkan halaman saat ini
+        $no = $batas * ($data_buku->currentPage() - 1);
+    
+        return view('buku.popular', compact('data_buku', 'no'));
+    }
+
+    public function bukuByKategori($kategori){
+        $kategori = KategoriBuku::where('ategori', $kategori)->firstOrFail();
+        $buku = $kategori->buku;
+    
+        return view('buku.index', compact('buku'));
+
+    }
+    
 }
     
 

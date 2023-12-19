@@ -18,6 +18,12 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('buku.popular')" :active="request()->routeIs('buku.popular')">
+                        {{ __('Popular') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('favorite.index')" :active="request()->routeIs('favorite.index')">
                         {{ __('My Favorite') }}
                     </x-nav-link>

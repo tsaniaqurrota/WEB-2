@@ -28,15 +28,29 @@
 
     <div class="container bg-white mt-10 mb-4 p-4 rounded-lg shadow-md">
         <div class="flex justify-between items-center">
-        @if (Auth::check() && Auth::user()->role == 'admin')
-            <a href="{{ route('buku.create') }}" class="btn btn-primary">Tambah Buku</i></a>
-        @endif
+            @if (Auth::check() && Auth::user()->role == 'admin')
+                <div class="flex items-center">
+                    <a href="{{ route('buku.create') }}" class="btn btn-primary">Tambah Buku</a>
+            @endif
+
+                    <div class="dropdown ml-2">
+                        <button class="btn dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-filter text-gray-500 mr-2"></i>
+                            <span>Filter by</span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="filterDropdown">
+                            <a class="dropdown-item" href="#">Misteri/Detektif</a>
+                            <a class="dropdown-item" href="#">Percintaan</a>
+                            <a class="dropdown-item" href="#">Kehidupan</a>
+                        </div>
+                    </div>
+
 
             <form action="{{ route('buku.search') }}" method="get" class="flex items-center">
-                <input type="text" name="kata" class="form-control rounded" placeholder="Cari..." style="width: 100%; display: inline; margin-top: 10px; margin-bottom: 10px; float: right;">       
-                <a href="{{ route('buku.search') }}" class="ml-2 btn btn-primary"><i class="fas fa-search"></i></a>
+                <input type="text" name="kata" class="form-control rounded" placeholder="Cari..." style="width: 100%; display: inline; margin-top: 10px; margin-bottom: 10px; float: right;">
+                <button type="submit" class="ml-2 btn btn-primary"><i class="fas fa-search"></i></button>
             </form>
-        </div>  
+        </div>
 
         <table class="table table-striped">
             <thead class="text-center">
@@ -111,13 +125,18 @@
         <div>{{ $data_buku->links() }}</div>
 
     </div>
+
+
          
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
 </body>
 </html>
 
 
 </x-app-layout>
+

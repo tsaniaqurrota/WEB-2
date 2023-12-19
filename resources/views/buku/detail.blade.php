@@ -115,6 +115,12 @@
         </table>
         </div>
 
+        @csrf
+   <div class="form-group">
+        <h5 class=" mt-3 mb-3"><b>REVIEW</b></h5>
+        <textarea class="form-control" id="review_text" name="review_text" rows="4"></textarea>
+        </div>
+   <button class="btn btn-sm btn-primary" type="submit">Submit Review</button>
     </div>
 
 
